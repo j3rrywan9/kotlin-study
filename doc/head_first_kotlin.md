@@ -71,15 +71,70 @@ You create an array using the `arrayOf()` function.
 
 You can get the value of an item in the array by referencing the array variable with an index.
 
-### Chapter 3
+## Chapter 3
 
-#### You can get things back from a function
+### You can get things back from a function
 
 If you want to get something back from a function, you need to declare it.
 
 If you declare that a function returns a value, then you must return a value of the declared type.
 
-##### Functions with no return value
+#### Functions with no return value
 
 If you don't want your function to return a value, you can either omit the return type from the function declaration, or specify a return type of `Unit`.
 Declaring a return type of `Unit` means that the function returns no value.
+
+## Chapter 4
+
+Classes are *templates* that allow you to **create your own types of objects**, and define their properties and functions.
+
+### Object types are defined using classes
+
+A class is a template that defines what properties and functions are associated with objects of that type.
+
+#### You can define your own classes
+
+### How to design your own classes
+
+### How to access properties and functions
+
+Once you've created an object, you can access its properties using the dot operator (`.`).
+
+You can also update any properties that you have defined using the `var` keyword.
+
+Note that the compiler won't let you update any properties that you've defined using the `val` keyword.
+
+You can also use the dot operator to call an object's functions.
+
+### How objects are created
+
+A constructor contains the code that's needed to initialize an object.
+It runs before the object can be assigned to a reference, which means that you get a chance to step in, and do things to make the object ready for use.
+Most people use constructors to define an object's properties and assign values to them.
+
+Each time you create a new object, the constructor for that object's class is invoked.
+
+### How to write a custom setter
+
+A setter is a function named **set** that's added to the property by writing it beneath the property declaration.
+A setter has one parameter - usually named `value` — which is the proposed new value of the property.
+
+The setter updates the value of the property by means of the **field** identifier.
+`field` refers to the property's backing field, which you can think of as being a reference to the underlying value of the property.
+Using field in your getters and setters in place of the property name is important, as it stops you getting stuck in an endless loop.
+
+## Chapter 5
+
+### Declare the superclass and its properties and functions as open
+
+Before a class can be used as a superclass, you have to explicitly tell the compiler that this is allowed.
+You do this by prefixing the name of the class—and any properties or functions you want to override — with the keyword **open**.
+This tells the compiler that you've designed the class to be a superclass, and that you're happy for the properties and functions you've declared as `open` to be overridden.
+
+### How a subclass inherits from a superclass
+
+To make a class inherit from another, you add a colon (`:`) to the class header followed by the name of the superclass.
+This makes the class a subclass, and gives it all the properties and functions of the class it inherits from.
+
+Calling the superclass constructor is mandatory: if the superclass has a primary constructor, then you *must* call it in the subclass header or your code won't compile.
+And even if you haven't explicitly added a constructor to your superclass, remember that the compiler automatically creates an empty one for you when the code gets compiled.
