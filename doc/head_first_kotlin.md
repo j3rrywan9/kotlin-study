@@ -138,3 +138,50 @@ This makes the class a subclass, and gives it all the properties and functions o
 
 Calling the superclass constructor is mandatory: if the superclass has a primary constructor, then you *must* call it in the subclass header or your code won't compile.
 And even if you haven't explicitly added a constructor to your superclass, remember that the compiler automatically creates an empty one for you when the code gets compiled.
+
+If the superclass constructor includes parameters, you must pass values for these parameters when you call the constructor.
+
+### How (and when) to override properties
+
+You override a property that's been inherited from a superclass by adding the property to the subclass, and prefixing it with the `override` keyword.
+
+This means that if you define a property in the superclass using `val`, you *must* override it in the subclass if you want to assign a different value to it.
+
+If a superclass property has been defined using `var`, you don’t need to override it in order to assign a new value to it, as `var` variables can be reused for other values.
+You can instead assign it a new value in the subclass’s initializer block, as in this example:
+```kotlin
+open class Animal {
+    val image = ""
+}
+
+class Hippo : Animal() {
+    init {
+        image = "hippo.jpg"
+    }
+}
+```
+
+### How to override functions
+
+You override a function in a similar way to how you override a property: by adding the function to the subclass, prefixed with `override`.
+
+#### The rules for overriding functions
+
+When you override a function, there are two rules that you must follow:
+* The function parameters in the subclass must match those in the superclass.
+* The function return types must be compatible.
+
+Whatever the superclass function declares as a return type, the overriding function must return either the same type, or a subclass type.
+A subclass type is guaranteed to do anything its superclass declares, so it’s safe to return a subclass where the superclass is expected.
+
+### An overridden function or property stays open...
+
+What we didn't tell you is that the function or property stays open in each of its subclasses, even if it's overridden, so you don't have to declare it as `open` further down the tree.
+
+#### ...until it's declared `final`
+
+If you want to stop a function or property from being overridden further down the class hierarchy, you can prefix it with `final`.
+
+### Which function is called?
+
+When you call a function on an object reference, you're calling the most specific version of the function for that object type: the one that's lowest on the inheritance tree.
