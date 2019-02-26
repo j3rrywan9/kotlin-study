@@ -1,6 +1,6 @@
 package me.jerrywang.kotlin.study.examples.polymorphism
 
-abstract class Animal {
+abstract class Animal : Roamable {
     abstract val image: String
     abstract val food: String
     abstract val habitat: String
@@ -10,7 +10,7 @@ abstract class Animal {
 
     abstract fun eat()
 
-    open fun roam() {
+    override fun roam() {
         println("The Animal is roaming")
     }
 
