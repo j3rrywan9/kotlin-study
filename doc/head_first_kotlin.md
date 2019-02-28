@@ -305,3 +305,208 @@ You can use the `is` operator in a variety of situations.
 Most applications include classes whose main purpose is to store data, so to make your coding life easier, the Kotlin developers came up with the concept of a **data class**.
 
 ### `==` calls a function named `equals`
+
+### `equals` is inherited from a superclass named `Any`
+
+Each object has a function named `equals` because its class inherits the function from a class named **Any**.
+Class `Any` is the mother of all classes: the ultimate superclass of everything.
+Every class you define is a subclass of Any without you ever having to say it.
+
+### The common behavior defined by `Any`
+
+The `Any` class defines several functions that are inherited by every class.
+* `equals(any: Any): Boolean`
+* `hashCode(): Int`
+* `toString(): String`
+
+### We might want `equals` to check whether two objects are equivalent
+
+There are some situations in which you might want to change the implementation of the `equals` function in order to change how the `==` operator behaves.
+
+While you *could* change the behavior of the `==` operator by writing extra code to override the equals function, the Kotlin developers came up with a better approach: they came up with the concept of a **data class**.
+
+### A data class lets you create data objects
+
+A *data* class is one that lets you create objects whose main purpose is to store data.
+It includes features that are helpful when you're dealing with data, such as a new implementation of the `equals` function that checks whether two data objects hold the same property values.
+This is because if two objects store the same data, they can be considered equal.
+
+You define a data class by prefixing a normal class definition with the `data` keyword.
+
+#### How to create objects from a data class
+
+You create objects from a data class in the same way that you create objects from a normal class: by calling its constructor.
+
+Data classes automatically override their `equals` function in order to change the behavior of the `==` operator so that it checks for object equality **based on the values of each object's properties**.
+
+In addition to providing a new implementation of the equals function it inherits from the `Any` superclass, data classes also override the `hashCode` and `toString` functions.
+
+### Data classes override their inherited behavior
+
+#### The `equals` function compares property values
+
+Data objects are considered equal if their properties hold the same values.
+
+#### Equal objects return the same `hashCode` value
+
+#### `toString` returns the value of each property
+
+Finally, the `toString` function no longer returns the name of the class followed by a number.
+Instead, it returns a useful String that contains the value of each property that's defined in the data class constructor:
+
+### Copy data objects using the `copy` function
+
+If you want to create a new copy of a data object, altering some of its properties but leaving the rest intact, you can do so using the **copy** function.
+To use, you call the function on the object you want to copy, passing in the names of any properties you wish to alter along with their new values.
+
+As well as the `copy` function, data classes also provide a set of functions that allow you to split a data object into its component property values in a process called **destructuring**.
+
+### Data classes define `componentN` functions...
+
+When you define a data class, the compiler automatically adds a set of functions to the class that you can use as an alternate way of accessing its object's property values.
+These are known as `componentN` functions, where `N` represents the number of the property whose value you wish to retrieve (in order of declaration).
+
+#### ...that let you destructure data objects
+
+Having generic `componentN` functions is useful as it provides a quick way of splitting a data object into its component property values, or **destructuring** it.
+
+### Generated functions only use properties defined in the constructor
+
+When the compiler generates implementations for data class functions, such as overriding the equals function and creating a copy function, it only includes the properties defined in the primary constructor.
+So if you add properties to a data class by defining them in the class body, they won't be included in any of the generated functions.
+
+### Overloading a function
+
+## Chapter 8
+
+### Remove an object reference using `null`
+
+By default, types in Kotlin won't accept null values.
+If you want a variable to hold null values, you must explicitly declare that its type is nullable.
+
+#### Why have nullable types?
+
+A nullable type is one that allows null values.
+Unlike other programming languages, Kotlin tracks values that can be null to stop you from performing invalid actions on them.
+Performing invalid actions on null values is the most common cause of runtime problems in other languages such as Java, and can cause your application to crash in a heap when you least expect it.
+These problems, however, rarely happen in Kotlin because of its clever use of nullable types.
+
+You declare that a type is nullable by adding a question mark (`?`) to the end of the type.
+
+### How to access a nullable type's functions and properties
+
+Suppose you have a variable whose type is nullable, and you want to access its object's properties and functions.
+You can't make function calls or refer to the properties of a null value as it doesn't have any.
+To stop you from performing any operations that are invalid, the compiler insists that you check that the variable is not null before giving you access to any functions or properties.
+
+To access the underlying object's functions and properties, you first have to establish that the variable's value is not `null`.
+One way of achieving this is to check the value of the variable inside an `if`.
+
+### Keep things safe with safe calls
+
+If you want to access a nullable type's properties and functions, an alternative approach is to use a **safe call**.
+A safe call lets you access functions and properties in a single operation without you having to perform a separate null-check.
+
+`?.` is the safe call operator.
+It lets you safely access a nullable type's functions and properties.
+
+### You can chain safe calls together
+
+Another advantage of using safe calls is that you can chain them together to form expressions that are powerful yet concise.
+
+### Use `let` to run code if values are not `null`
+
+The `let` keyword used in conjunction with the safe call operator `?.` tells the compiler that you want to perform some action when the value it's operating on is not `null`.
+
+Once you've established that the value is not `null`, you can refer to it in the body of the `let` using **it**.
+
+### Instead of an `if` expression...
+
+#### ...you can use the safer Elvis operator
+
+The Elvis operator `?:` is a safe alternative to an if expression.
+It's called the Elvis operator because when you tip it on its side, it looks a bit like Elvis.
+
+The Elvis operator first checks the value on its left.
+If this value is not null, the Elvis operator returns it.
+If the value on the left is null, however, the Elvis operator returns the value on its right instead
+
+## Chapter 9
+
+Kotlin comes with a bunch of useful collections that give you more flexibility and greater control over how you store and manage groups of objects.
+
+### When in doubt, go to the Library
+
+Kotlin ships with hundreds of pre-built classes and functions that you can use in your code.
+
+In the Kotlin Standard Library, classes and functions are grouped into packages.
+Every class belongs to a package, and each package has a name.
+
+### List, Set and Map
+
+### Fantastic Lists...
+
+You create a List in a similar way to how you create an array: by calling a function named `listOf`, passing in the values you want the `List` to be initialized with.
+
+The compiler infers the type of object each `List` should contain by looking at the type of each value that's passed to it when it's created.
+
+#### ...and how to use them
+
+Once you've created a List, you can access the items it contains using the `get` function.
+
+As you can see, using a `List` is a lot like using an array.
+The big difference, however, is that a List is immutable - you can't update any of the references it stores.
+
+### Create a `MutableList`...
+
+If you want a `List` whose values you can update, you need to use a `MutableList`.
+You define a `MutableList` in a similar way to how you define a `List`, except this time, you use the `mutableListOf` function instead:
+```kotlin
+val mShopping = mutableListOf("Tea", "Eggs")
+```
+`MutableList` is a subtype of `List`, so you can call the same functions on a `MutableList` that you can on a `List`.
+The big difference, however, is that `MutableList`s have extra functions that you can use to add or remove values, or update or rearrange existing ones.
+
+#### ...and add values to it
+
+You add new values to a `MutableList` using the `add` function.
+If you want to add a new value to the end of the `MutableList`, you pass the value to the `add` function as a single parameter.
+
+If you want to insert a value at a specific index instead, you can do so by passing the index value to the `add` function in addition to the value.
+
+### You can remove a value...
+
+#### ...and replace one value with another
+
+### Lists allow duplicate values
+
+### How to create a Set
+
+If you need a collection that doesn't allow duplicates, you can use a **Set**: an unordered collection with no duplicate values.
+
+You create a `Set` by calling a function named `setOf`, passing in the values you want the `Set` to be initialized with.
+
+The compiler infers the `Set`'s type by looking at the values that are passed to it when it's created.
+
+### Time for a Map
+
+A `Map` is a collection that acts like a property list.
+You give it a key, and the `Map` gives you back the value associated with that key.
+
+Each entry in a `Map` is actually two objects - a key and a value.
+Each key has a single value associated with it.
+You can have duplicate values, but you can't have duplicate keys.
+
+#### How to create a Map
+
+### How to use a Map
+
+### Create a MutableMap
+
+## Chapter 10
+
+### Collections use generics
+
+### Use `out` to make a generic type covariant
+
+If you want to be able to use a generic subtype object in a place of a generic supertype, you can do so by prefixing the generic type with `out`.
