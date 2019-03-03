@@ -510,3 +510,54 @@ You can have duplicate values, but you can't have duplicate keys.
 ### Use `out` to make a generic type covariant
 
 If you want to be able to use a generic subtype object in a place of a generic supertype, you can do so by prefixing the generic type with `out`.
+
+### Use `in` to make a generic type contravariant
+
+## Chapter 11
+
+### Introducing lambdas
+
+### What lambda code looks like
+
+The lambda starts and ends with curly braces `{}`.
+All lambdas are defined within curly braces, so they can't be omitted.
+
+### You can assign a lambda to a variable
+
+You assign a lambda to a variable in the same way that you assign any other sort of object to a variable: by defining the variable using `val` or `var`, then assigning the lambda to it.
+
+### Lambda expressions have a type
+
+Instead, it specifies the type of the lambda's parameters and return value.
+
+A lambda's type is also known as a function type.
+
+A lambda's type takes the form:
+```kotlin
+(parameters) -> return_type
+```
+
+### The compiler can infer lambda parameter types
+
+#### You can replace a single parameter with `it`
+
+If you have a lambda which has a single parameter, and the compiler can infer its type, you can omit the parameter, and refer to it in the lambda body using the keyword `it`.
+
+### Use the right lambda for the variable's type
+
+### You can pass a lambda to a function
+
+As well as assigning a lambda to a variable, you can also use one or more as function parameters.
+Doing so allows you to pass specific behavior to a more generalized function.
+
+#### Call the function by passing it parameter values
+
+### A function can return a lambda
+
+## Chapter 12
+
+### Kotlin has a bunch of built-in higher-order functions
+
+Kotlin comes with a bunch of built-in higher-order functions that take a lambda parameter, many of which deal with collections.
+
+Each higher-order function has a generalized implementation, and its specific behavior is defined by the lambda that you pass to it.
