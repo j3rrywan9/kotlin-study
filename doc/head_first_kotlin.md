@@ -70,8 +70,31 @@ Instead of letting the compiler infer the variable’s type from its value, you 
 You create an array using the `arrayOf()` function.
 
 You can get the value of an item in the array by referencing the array variable with an index.
+As an example, here’s how you print the value of the first item:
+```kotlin
+println(myArray[0])
+```
+And if you want to get the size of the array, use
+```kotlin
+myArray.size
+```
 
 ## Chapter 3
+
+### How you create functions
+
+As you learned back in Chapter 1, you define new functions using the `fun` keyword, followed by the name of the function.
+
+### You can send things to a function
+
+You tell the compiler what values a function can accept by specifying one or more **parameters**.
+
+Each parameter must have a name and type.
+
+### You can send more than one thing to a function
+
+If you want your function to have multiple parameters, you separate them with commas when you declare them, and separate the arguments with commas when you pass them to the function.
+Most importantly, if a function has multiple parameters, you must pass arguments of the right type in the right order.
 
 ### You can get things back from a function
 
@@ -83,6 +106,32 @@ If you declare that a function returns a value, then you must return a value of 
 
 If you don't want your function to return a value, you can either omit the return type from the function declaration, or specify a return type of `Unit`.
 Declaring a return type of `Unit` means that the function returns no value.
+
+### How `for` loops work
+
+A `for` loop is useful in situations where you want to loop through a fixed range of numbers, or through every item in an array (or some other type of collection.
+
+#### Looping through a range of numbers
+
+To loop through a range of numbers, you first specify a name for the variable the loop should use.
+
+You specify the range of values using the `..` operator.
+
+Note that the `..` operator includes the end number in its range.
+If you wanted to exclude it, you would replace the `..` operator with `until`.
+
+#### Use `downTo` to reverse the range
+
+If you want to loop through a range of numbers in reverse order, you use `downTo` instead of `..` or `until`.
+
+#### Use `step` to skip numbers in the range
+
+By default, the `..` operator, `until` and `downTo` step through the range one number at a time.
+If you want, you can increase the size of the step using `step`.
+
+#### Looping through the items in an array
+
+You can also use a `for` loop to iterate through the items in an array.
 
 ## Chapter 4
 
