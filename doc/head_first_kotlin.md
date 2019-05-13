@@ -227,7 +227,7 @@ Using field in your getters and setters in place of the property name is importa
 ### Declare the superclass and its properties and functions as open
 
 Before a class can be used as a superclass, you have to explicitly tell the compiler that this is allowed.
-You do this by prefixing the name of the class—and any properties or functions you want to override — with the keyword **open**.
+You do this by prefixing the name of the class — and any properties or functions you want to override — with the keyword `open`.
 This tells the compiler that you've designed the class to be a superclass, and that you're happy for the properties and functions you've declared as `open` to be overridden.
 
 ### How a subclass inherits from a superclass
@@ -246,8 +246,8 @@ You override a property that's been inherited from a superclass by adding the pr
 
 This means that if you define a property in the superclass using `val`, you *must* override it in the subclass if you want to assign a different value to it.
 
-If a superclass property has been defined using `var`, you don’t need to override it in order to assign a new value to it, as `var` variables can be reused for other values.
-You can instead assign it a new value in the subclass’s initializer block, as in this example:
+If a superclass property has been defined using `var`, you don't need to override it in order to assign a new value to it, as `var` variables can be reused for other values.
+You can instead assign it a new value in the subclass's initializer block, as in this example:
 ```kotlin
 open class Animal {
     val image = ""
@@ -271,7 +271,7 @@ When you override a function, there are two rules that you must follow:
 * The function return types must be compatible.
 
 Whatever the superclass function declares as a return type, the overriding function must return either the same type, or a subclass type.
-A subclass type is guaranteed to do anything its superclass declares, so it’s safe to return a subclass where the superclass is expected.
+A subclass type is guaranteed to do anything its superclass declares, so it's safe to return a subclass where the superclass is expected.
 
 ### An overridden function or property stays open...
 
@@ -280,10 +280,31 @@ What we didn't tell you is that the function or property stays open in each of i
 #### ...until it's declared `final`
 
 If you want to stop a function or property from being overridden further down the class hierarchy, you can prefix it with `final`.
+```kotlin
+open class Car : Vehicle() {
+    final override fun lowerTemperature() {
+        println("Turn on air conditioning")
+    }
+}
+```
 
 ### Which function is called?
 
 When you call a function on an object reference, you're calling the most specific version of the function for that object type: the one that's lowest on the inheritance tree.
+
+### Inheritance guarantees that all subclasses have the functions and properties defined in the superclass
+
+When you define a set of properties and functions in a superclass, you're guaranteeing that all its subclasses also have these properties and functions.
+In other words, you define a common protocol, or contract, for a set of classes that are related by inheritance.
+
+#### Any place where you can use a superclass, you can use one of its subclasses instead
+
+When you define a supertype for a group of classes, you can use any subclass in place of the superclass it inherits from.
+
+### You can use a supertype for a function's parameters and return type
+
+Being able to use one type of object in a place that explicitly expects a different type is called **polymorphism**.
+It's the ability to provide different implementations for functions that have been inherited from somewhere else.
 
 ## Chapter 6
 
