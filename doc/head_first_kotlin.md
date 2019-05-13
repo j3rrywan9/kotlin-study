@@ -143,7 +143,20 @@ A class is a template that defines what properties and functions are associated 
 
 #### You can define your own classes
 
+If you want your application to deal with types of objects that Kotlin doesn't have, you can define your own types by writing new classes.
+
 ### How to design your own classes
+
+When you want to define your own class, you need to think about the objects that will be created from that class.
+You need to consider:
+* The things each object knows about itself.
+* The things each object can do.
+
+The things an object knows about itself are its **properties**.
+They represent an object's state (the data), and each object of that type can have unique values.
+
+The things an object can do are its **functions**.
+They determine an object's behavior, and may use the object's properties.
 
 ### How to access properties and functions
 
@@ -157,11 +170,48 @@ You can also use the dot operator to call an object's functions.
 
 ### How objects are created
 
+When we define an object using code like:
+```kotlin
+var myDog = Dog("Fido", 70, "Mixed")
+```
+it looks like we're calling a function named `Dog`.
+But even though it looks and feels a lot like a function, it's not.
+Instead, we're calling the `Dog` **constructor**.
+
 A constructor contains the code that's needed to initialize an object.
 It runs before the object can be assigned to a reference, which means that you get a chance to step in, and do things to make the object ready for use.
 Most people use constructors to define an object's properties and assign values to them.
 
 Each time you create a new object, the constructor for that object's class is invoked.
+
+#### What the `Dog` constructor looks like
+
+When we created our `Dog` class, we included a constructor; it's the parentheses and the code in between in the class header:
+```kotlin
+class Dog(val name: String, var weight: Int, val breed: String) {
+
+}
+```
+
+#### That's right - a property is a variable that's local to the object.
+
+This means that everything you've already learned about variables applies to properties.
+If you define a property using the `val` keyword, for example, this means that you can't assign a new value to it.
+You can, however, update any properties that have been defined using `var`.
+
+### How to use initializer blocks
+
+If you need to initialize a property to something more complex than a simple expression, or if there's extra code you want to run when each object is created, you can use one or more **initializer blocks**.
+Initializer blocks are executed when the object is initialized, immediately after the constructor is called, and they're prefixed with the `init` keyword.
+
+### You MUST initialize your properties
+
+This also applies to any properties you define in a class: you must initialize properties before you try to use them.
+This is so important that if you declare a property without initializing it in either the property declaration or the initializer block, the compiler will get very upset and refuse to compile your code.
+
+### How to write a custom getter
+
+Technically, getters and setters are optional parts of the property declaration.
 
 ### How to write a custom setter
 
