@@ -317,7 +317,7 @@ If you want to fully exploit polymorphism, you need to design using abstract cla
 If you want to prevent a class from being instantiated, you can mark the class as **abstract** by prefixing it with the `abstract` keyword.
 
 Being an abstract class means that nobody can create any objects of that type, even if you've defined a constructor for it.
-You can still use that abstract class as a declared variable type, but you don't have to worry about somebody creating objects of that type—the compiler stops it from happening:
+You can still use that abstract class as a declared variable type, but you don't have to worry about somebody creating objects of that type - the compiler stops it from happening:
 
 If a superclass is marked as abstract, you don't need to declare that it's open.
 
@@ -351,12 +351,16 @@ You implement abstract properties and functions by overriding each one and provi
 This means that you need to initialize any abstract properties, and you need to provide a body for any abstract functions.
 
 When you implement abstract properties and functions, you must follow the same rules for overriding that you use for overriding normal properties and functions:
-*
-*
+* When you implement an abstract *property*, it must have the same name, and its type must be compatible with the type defined in the abstract superclass.
+In other words, it must be the same type, or one of its subtypes.
+* When you implement an abstract *function*, it must have the same function signature (name and arguments) as the function that's defined in the abstract superclass.
+Its return type must be compatible with the declared return type.
 
 ### You MUST implement all abstract properties and functions
 
 The first **concrete** class in the inheritance tree below the abstract superclass *must* implement all abstract properties and functions.
+
+With **abstract** subclasses, you have a choice: you can either implement the abstract properties and functions, or pass the buck to its subclasses.
 
 ### Independent classes can have common behavior
 
@@ -365,7 +369,7 @@ When you have independent classes that exhibit common behavior, you can model th
 ### An interface lets you define common behavior OUTSIDE a superclass hierarchy
 
 Interfaces are used to define a protocol for common behavior so that you can benefit from polymorphism without having to rely on a strict inheritance structure.
-Interfaces are similar to abstract classes in that they can't be instantiated, and they can define abstract or concrete functions and properties, but there’s one key difference: a class can implement multiple interfaces, but can only inherit from a single direct superclass.
+Interfaces are similar to abstract classes in that they can't be instantiated, and they can define abstract or concrete functions and properties, but there's one key difference: a class can implement multiple interfaces, but can only inherit from a single direct superclass.
 So using interfaces can provide the same benefits as using abstract classes, but with more flexibility.
 
 #### Interface functions can be abstract or concrete
@@ -383,6 +387,8 @@ You add a property to an interface by including it in the interface body.
 This is the only way in which you can define an interface property, as unlike abstract classes, interfaces can't have constructors.
 
 Unlike properties in abstract classes, properties that are defined in an interface can't store state, and therefore can't be initialized.
+
+Another restriction is that interface properties don't have backing fields.
 
 ### Declare that a class implements an interface...
 
@@ -419,6 +425,24 @@ If the underlying object is of the appropriate type, the compiler then lets you 
 You can use the `is` operator in a variety of situations.
 
 ### Where to use the `is` operator
+
+### Use `when` to compare a variable against a bunch of options
+
+A `when` statement is useful if you want to compare a variable against a set of different options.
+It's like using a chain of `if`/`else` expressions, but more compact and readable.
+
+If you want to run different code depending on the underlying type of an object, you can use the `is` operator inside a `when` statement.
+
+### The `is` operator usually performs a smart cast
+
+In most circumstances, the `is` operator performs a **smart cast**.
+*Casting* means that the compiler treats a variable as though its type is different to the one that it's declared as, and *smart casting* means that the compiler automatically performs the cast on your behalf.
+
+The `is` operator performs a smart cast whenever the compiler can guarantee that the variable can't change between checking the object's type and when it's used.
+
+### Use `as` to perform an explicit cast
+
+If you want to access the behavior of an underlying object but the compiler can't perform a smart cast, you can explicitly cast the object into the appropriate type.
 
 ## Chapter 7
 
