@@ -450,18 +450,46 @@ Most applications include classes whose main purpose is to store data, so to mak
 
 ### `==` calls a function named `equals`
 
+As you already know, you can use the `==` operator to check for equality.
+Behind the scenes, each time you use the `== `operator, it calls a function named `equals`.
+Every object has an `equals` function, and the implementation of this function determines how the `==` operator will behave.
+
+By default, the `equals` function checks for equality by checking whether two variables hold references to the same underlying object.
+
 ### `equals` is inherited from a superclass named `Any`
 
 Each object has a function named `equals` because its class inherits the function from a class named **Any**.
 Class `Any` is the mother of all classes: the ultimate superclass of everything.
 Every class you define is a subclass of Any without you ever having to say it.
 
+#### The importance of being `Any`
+
+Having `Any` as the ultimate superclass has two key benefits:
+* It ensures that every class inherits common behavior.
+* It means you can use polymorphism with any object.
+Every class is a subclass of `Any`, so every object you create has `Any` as its ultimate supertype.
+This means that you can create a function with `Any` parameters, or an `Any` return type, so that it will work with all types of object.
+It also means that you can create polymorphic arrays to hold objects of any type using code like this:
+```kotlin
+val myArray = arrayOf(Car(), Guitar(), Giraffe())
+```
+
 ### The common behavior defined by `Any`
 
 The `Any` class defines several functions that are inherited by every class.
+Here are the ones we care about most, along with an example of its default behavior:
 * `equals(any: Any): Boolean`
+Tells you if two objects are considered "equal".
+By default, it returns true if it's used to test the same object, and false if it's used to test separate objects.
+Behind the scenes, the `equals` function gets called each time you use the `==` operator.
 * `hashCode(): Int`
+Returns a hash code value for the object.
 * `toString(): String`
+Returns a `String` message that represents the object.
+By default, this is the name of the class and some other number that we rarely care about.
+
+The `Any` class provides a default implementation for each of the above functions, and these implementations are inherited by every class.
+They can, however, be overridden if you want to change the default behavior of any of these functions.
 
 ### We might want `equals` to check whether two objects are equivalent
 
@@ -486,6 +514,8 @@ Data classes automatically override their `equals` function in order to change t
 In addition to providing a new implementation of the equals function it inherits from the `Any` superclass, data classes also override the `hashCode` and `toString` functions.
 
 ### Data classes override their inherited behavior
+
+A data class needs its objects to play well with data, so it automatically provides the following implementations for the `equals`, `hashCode` and `toString` functions it inherits from the Any superclass:
 
 #### The `equals` function compares property values
 
@@ -514,12 +544,32 @@ These are known as `componentN` functions, where `N` represents the number of th
 
 Having generic `componentN` functions is useful as it provides a quick way of splitting a data object into its component property values, or **destructuring** it.
 
+#### The `===` operator always lets you check whether two variables refer to the same underlying object
+
+If you want to check whether two variables refer to the same underlying object, irrespective of their type, you should use the `===` operator instead of `==`.
+This is because the `===` operator always evaluates to `true` if (and only if) the two variables hold a reference to the same underlying object.
+
+Unlike the `==` operator, the `===` operator doesn't rely on the `equals` function for its behavior.
+The `===` operator always behaves in this way irrespective of the type of class.
+
 ### Generated functions only use properties defined in the constructor
 
-When the compiler generates implementations for data class functions, such as overriding the equals function and creating a copy function, it only includes the properties defined in the primary constructor.
+When the compiler generates implementations for data class functions, such as overriding the `equals` function and creating a `copy` function, it only includes the properties defined in the primary constructor.
 So if you add properties to a data class by defining them in the class body, they won't be included in any of the generated functions.
 
+### Initializing many properties can lead to cumbersome code
+
+#### Default parameter values to the rescue!
+
+If your constructor defines many properties, you can simplify calls to it by assigning a default value or expression to one or more property definitions in the constructor.
+
+### How to use a constructor's default values
+
+When you have a constructor that uses default values, there are two main ways of calling it: by passing values in order of declaration, and by using named arguments.
+
 ### Overloading a function
+
+**Function overloading** is when you have two or more functions with the same name but with different argument lists.
 
 ## Chapter 8
 
