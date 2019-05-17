@@ -587,11 +587,20 @@ These problems, however, rarely happen in Kotlin because of its clever use of nu
 
 You declare that a type is nullable by adding a question mark (`?`) to the end of the type.
 
+### You can use a nullable type everywhere you can use a non-nullable type
+
+Every type you define can be turned into a nullable version of that type by simply adding a `?` to the end of it.
+You can use nullable types in the same places that you would use plain old non-nullable types:
+* When defining variables and properties.
+* When defining parameters.
+* When defining function return types.
+A function can have a nullable return type.
+
 ### How to access a nullable type's functions and properties
 
 Suppose you have a variable whose type is nullable, and you want to access its object's properties and functions.
 You can't make function calls or refer to the properties of a null value as it doesn't have any.
-To stop you from performing any operations that are invalid, the compiler insists that you check that the variable is not null before giving you access to any functions or properties.
+To stop you from performing any operations that are invalid, the compiler *insists* that you check that the variable is not null before giving you access to any functions or properties.
 
 To access the underlying object's functions and properties, you first have to establish that the variable's value is not `null`.
 One way of achieving this is to check the value of the variable inside an `if`.
@@ -616,14 +625,31 @@ Once you've established that the value is not `null`, you can refer to it in the
 
 ### Instead of an `if` expression...
 
+Another thing you may want to do when you have nullable types is use an `if` expression that specifies an alternate value for something that's `null`.
+
 #### ...you can use the safer Elvis operator
 
 The Elvis operator `?:` is a safe alternative to an if expression.
 It's called the Elvis operator because when you tip it on its side, it looks a bit like Elvis.
 
 The Elvis operator first checks the value on its left.
-If this value is not null, the Elvis operator returns it.
-If the value on the left is null, however, the Elvis operator returns the value on its right instead
+If this value is not `null`, the Elvis operator returns it.
+If the value on the left is `null`, however, the Elvis operator returns the value on its right instead
+
+### The `!!` operator deliberately throws a `NullPointerException`
+
+The not-null assertion operator, or `!!`, is different to the other methods for dealing with nulls that we've looked at over the past few pages.
+Instead of making sure that your code is safe by handling any null values, the not-null assertion operator deliberately throws a `NullPointerException` if something turns out to be `null`.
+
+### Catching exceptions using a `try`/`catch`
+
+You catch exceptions by wrapping the risky code in a `try`/`catch` block.
+A `try`/`catch` block tells the compiler that you know an exceptional thing could happen in the code you want to execute, and that you're prepared to handle it.
+The compiler doesn't care how you handle it; it cares only that you say you're taking care of it.
+
+The `try` part of the `try`/`catch` block contains the risky code that might cause an exception.
+
+The `catch` part of the block specifies the exception that you want to catch, and includes the code you want to run if it catches it.
 
 ## Chapter 9
 
@@ -635,6 +661,9 @@ Kotlin ships with hundreds of pre-built classes and functions that you can use i
 
 In the Kotlin Standard Library, classes and functions are grouped into packages.
 Every class belongs to a package, and each package has a name.
+
+The package we're interested in here is the kotlin.collections package.
+This package includes a number of classes that let you group objects together in a collection.
 
 ### List, Set and Map
 
@@ -674,6 +703,9 @@ If you want to insert a value at a specific index instead, you can do so by pass
 
 ### Lists allow duplicate values
 
+As you've already learned, using a `List`, or `MutableList`, gives you more flexibility than using an array.
+Unlike an array, you can explicitly choose whether the collection should be immutable, or whether your code can add, remove and update its values.
+
 ### How to create a Set
 
 If you need a collection that doesn't allow duplicates, you can use a **Set**: an unordered collection with no duplicate values.
@@ -681,6 +713,21 @@ If you need a collection that doesn't allow duplicates, you can use a **Set**: a
 You create a `Set` by calling a function named `setOf`, passing in the values you want the `Set` to be initialized with.
 
 The compiler infers the `Set`'s type by looking at the values that are passed to it when it's created.
+
+#### How to use a `Set`'s values
+
+A `Set`'s values are unordered, so unlike a `List`, there's no `get` function you can use to get the value at a specified index.
+You can, however, still use the `contains` function to check whether a `Set` contains a particular value using code like this:
+```kotlin
+val isFredGoing = friendSet.contains("Fred")
+```
+
+A `Set` is immutable, so you can't add values to it, or remove existing ones.
+To do this kind of thing, you'd need to use a `MutableSet` instead.
+
+### How to use a `MutableSet`
+
+A `MutableSet` is a subtype of Set, but with extra functions that you can use to add and remove values.
 
 ### Time for a Map
 
@@ -691,11 +738,27 @@ Each entry in a `Map` is actually two objects - a key and a value.
 Each key has a single value associated with it.
 You can have duplicate values, but you can't have duplicate keys.
 
-#### How to create a Map
+#### How to create a `Map`
 
 ### How to use a Map
 
-### Create a MutableMap
+There are three main things you might want to do with a `Map`: check whether it contains a specific key or value, retrieve a value for a specified key, or loop through the `Map`'s entries.
+
+A `Map` is immutable, so you can't add or remove key/value pairs, or update the value held against a specific key.
+To perform this kind of action, you need to use a `MutableMap` instead.
+
+### Create a `MutableMap`
+
+You define a `MutableMap` in a similar way to how you define a `Map`, except that you use the `mutableMapOf` function instead of `mapOf`.
+
+`MutableMap` is a subtype of `Map`, so you can call the same functions on a `MutableMap` that you can on a `Map`.
+A `MutableMap`, however, has extra functions that you can use to add, remove and update key/value pairs.
+
+#### Put entries in a `MutableMap`
+
+You put entries into a `MutableMap` using the `put` function.
+
+### You can remove entries from a `MutableMap`
 
 ## Chapter 10
 
