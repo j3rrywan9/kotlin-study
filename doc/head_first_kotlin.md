@@ -764,11 +764,24 @@ You put entries into a `MutableMap` using the `put` function.
 
 ### Collections use generics
 
+As you learned in the previous chapter, each time you explicitly declare a collection's type, you must specify both the kind of collection you want to use, and the type of element it contains.
+
 ### Use `out` to make a generic type covariant
 
 If you want to be able to use a generic subtype object in a place of a generic supertype, you can do so by prefixing the generic type with `out`.
 
+When we prefix a generic type with `out`, we say that the generic type is **covariant**.
+In other words, it means that a subtype can be used in place of a supertype.
+
 ### Use `in` to make a generic type contravariant
+
+### A generic type can be locally contravariant
+
+As you've seen, prefixing a generic type with in as part of the class or interface declaration makes the generic type globally contravariant.
+You can, however, restrict this behavior to specific properties or functions.
+
+When a generic type has no `in` or `out` prefix, we say that the type is **invariant**.
+An invariant type can only accept references of that specific type.
 
 ## Chapter 11
 
