@@ -809,20 +809,42 @@ A lambda's type takes the form:
 
 ### The compiler can infer lambda parameter types
 
+When you explicitly declare a variable's type, you can leave out any type declarations from the lambda that the compiler can infer.
+
 #### You can replace a single parameter with `it`
 
 If you have a lambda which has a single parameter, and the compiler can infer its type, you can omit the parameter, and refer to it in the lambda body using the keyword `it`.
 
+Note that you can only use the `it` syntax in situations where the compiler can infer the type of the parameter.
+
 ### Use the right lambda for the variable's type
+
+#### Use `Unit` to say a lambda has no return value
+
+If you want to specify that a lambda has no return value, you can do so by declaring that its return type is `Unit`.
 
 ### You can pass a lambda to a function
 
 As well as assigning a lambda to a variable, you can also use one or more as function parameters.
 Doing so allows you to pass specific behavior to a more generalized function.
 
+#### Add a lambda parameter to a function by specifying its name and type
+
+You define a lambda parameter in the same way that you define any other sort of function parameter: by specifying the parameter's type, and giving it a name.
+
 #### Call the function by passing it parameter values
 
+You call a function with a lambda parameter in the same way that you call any other sort of function: by passing it a value for each argument.
+
 ### A function can return a lambda
+
+As well as using a lambda as a parameter, a function can also return one by specifying the lambda's type as its return type.
+
+### Use typealias to provide a different name for an existing type
+
+A **type alias** lets you provide an alternative name for an existing type, which you can then use in your code.
+
+You define a type alias using the `typealias` keyword.
 
 ## Chapter 12
 
