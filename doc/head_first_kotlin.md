@@ -853,3 +853,54 @@ You define a type alias using the `typealias` keyword.
 Kotlin comes with a bunch of built-in higher-order functions that take a lambda parameter, many of which deal with collections.
 
 Each higher-order function has a generalized implementation, and its specific behavior is defined by the lambda that you pass to it.
+
+### The `min` and `max` functions work with basic types
+
+As you already know, if you have a collection of basic types, you can use the `min` and `max` functions to find the lowest or highest value.
+
+The `min` and `max` functions work with Kotlin's basic types because they have a natural order.
+
+#### The `minBy` and `maxBy` functions work with ALL types
+
+If you want to find the lowest or highest value of a type that's more complex, you can use the `minBy` and `maxBy` functions.
+These functions work in a similar way to `min` and `max`, except that you can pass them criteria.
+
+The `minBy` and `maxBy` functions each take one parameter: a lambda that tells the function which property it should use in order to determine which item has the lowest or highest value.
+
+The lambda expression that you pass to the minBy or maxBy function must take a specific form in order for the code to compile and work correctly.
+
+### A closer look at `minBy` and `maxBy`'s lambda parameter
+
+When you call the minBy or maxBy function, you must provide it with a lambda which takes the following form:
+```kotlin
+{ i: item_type -> criteria }
+```
+The lambda must have one parameter, which we’ve denoted above using `i: item_type`.
+The parameter's type must match the type of item that the collection deals with.
+
+As each lambda has a single parameter of a known type, we can omit the parameter declaration entirely, and refer to the parameter in the lambda body using `it`.
+
+The lambda body specifies the criteria that should be used to determine the lowest or highest value in the collection.
+This criteria is normally the name of a property.
+
+### The `sumBy` and `sumByDouble` functions
+
+### Meet the `filter` function
+
+The next stop on our tour of Kotlin's higher-order functions is `filter`.
+This function lets you search, or filter, a collection according to some criteria that you pass to it using a lambda.
+
+For most collections, `filter` returns a List that includes all the items that match your criteria, which you can then use elsewhere in your code.
+If it's being used with a `Map`, however, it returns a `Map`.
+
+### Use `map` to apply a transform to your collection
+
+The `map` function takes the items in a collection, and transforms each one according to some formula that you specify.
+It returns the results of this transformation as a new `List`.
+
+#### You can chain function calls together
+
+### `forEach` works like a `for` loop
+
+The `forEach` function works in a similar way to a `for` loop, as it allows you to perform one or more actions against each item in a collection.
+You specify these actions using a lambda.
