@@ -11,7 +11,7 @@ brew install kotlin
 ## How to compile and run?
 
 ```kotlin
-fun main(args: Array<String>) {
+fun main() {
   println("Hello World!")
 }
 ```
@@ -19,6 +19,5 @@ fun main(args: Array<String>) {
 ```bash
 kotlinc Main.kt
 
-java -cp .:/usr/local/Cellar/kotlin/1.1.4-3/libexec/lib/kotlin-runtime.jar MainKt
+java -cp .:/usr/local/Cellar/kotlin/1.3.31/libexec/lib/kotlin-runtime.jar MainKt
 ```
-
