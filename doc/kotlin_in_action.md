@@ -57,3 +57,33 @@ This helps greatly in eliminating application crashes.
 #### Interoperable
 
 ### Using the Kotlin tools
+
+## Chapter 2
+
+### Basic elements
+
+#### Functions
+
+#### Variables
+
+By default, you should strive to declare all variables in Kotlin with the `val` keyword.
+Change it to `var` only if necessary.
+Using immutable references, immutable objects, and functions without side effects makes your code closer to the functional style.
+
+#### String templates
+
+### Classes and properties
+
+### Representing and handling choices: enums and "when"
+
+#### Declaring enum classes
+
+In Kotlin, `enum` is a so-called *soft keyword*: it has a special meaning when it comes before `class`, but you can use it as a regular name in other places.
+
+Note that this example shows the only place in the Kotlin syntax where you're required to use semicolons: if you define any methods in the enum class, the semicolon separates the enum constant list from the method definitions.
+
+### Exceptions in Kotlin
+
+Exception handling in Kotlin is similar to the way it’s done in Java and many other languages.
+A function can complete in a normal way or throw an exception if an error occurs.
+The function caller can catch this exception and process it; if it doesn't, the exception is rethrown further up the stack.
