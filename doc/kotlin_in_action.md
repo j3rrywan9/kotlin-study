@@ -123,3 +123,110 @@ fun main(args: Array<String>) {
     println(list)
 }
 ```
+
+## Chapter 4
+
+### Defining class hierarchies
+
+#### Interfaces in Kotlin
+
+Kotlin interfaces are similar to those of Java 8: they can contain definitions of abstract methods as well as implementations of non-abstract methods (similar to the Java 8 default methods), but they can't contain any state.
+
+To declare an interface in Kotlin, use the `interface` keyword instead of `class`.
+
+The `override` modifier, similar to the `@Override` annotation in Java, is used to mark methods and properties that override those from the superclass or interface.
+Unlike Java, using the `override` modifier is mandatory in Kotlin.
+This saves you from accidentally overriding a method if it's added after you wrote your implementation; your code won't compile unless you explicitly mark the method as `override` or rename it.
+
+An interface method can have a default implementation.
+Unlike Java 8, which requires you to mark such implementations with the `default` keyword, Kotlin has no special annotation for such methods: you just provide a method body.
+
+#### Open, final, and abstract modifiers: final by default
+
+Kotlin follows the same philosophy.
+Whereas Java's classes and methods are open by default, Kotlin's are `final` by default.
+
+If you want to allow the creation of subclasses of a class, you need to mark the class with the `open` modifier.
+In addition, you need to add the `open` modifier to every property or method that can be overridden.
+
+Note that if you override a member of a base class or interface, the overriding member will also be `open` by default.
+If you want to change this and forbid the subclasses of your class from overriding your implementation, you can explicitly mark the overriding member as `final`.
+
+#### Visibility modifiers: public by default
+
+Basically, visibility modifiers in Kotlin are similar to those in Java.
+You have the same `public`, `protected`, and `private` modifiers.
+But the default visibility is different: if you omit a modifier, the declaration becomes `public`.
+
+#### Inner and nested classes: nested by default
+
+A nested class in Kotlin with no explicit modifiers is the same as a static nested class in Java.
+To turn it into an inner class so that it contains a reference to an outer class, you use the `inner` modifier.
+
+#### Sealed classes: defining restricted class hierarchies
+
+Kotlin provides a solution to this problem: `sealed` classes.
+You mark a superclass with the `sealed` modifier, and that restricts the possibility of creating subclasses.
+All the direct subclasses must be nested in the superclass:
+```kotlin
+sealed class Expr {
+    class Num(val value: Int) : Expr()
+    class Sum(val left: Expr, val right: Expr) : Expr()
+}
+```
+If you handle all subclasses of a `sealed` class in a `when` expression, you don't need to provide the default branch.
+Note that the `sealed` modifier implies that the class is open; you don't need an explicit `open` modifier.
+
+When you use `when` with `sealed` classes and add a new subclass, the `when` expression returning a value fails to compile, which points you to the code that must be changed.
+
+### Declaring a class with nontrivial constructors or properties
+
+In Java, as you know, a class can declare one or more constructors.
+Kotlin is similar, with one additional change: it makes a distinction between a *primary* constructor (which is usually the main, concise way to initialize a class and is declared outside of the class body) and a *secondary* constructor (which is declared in the class body).
+It also allows you to put additional initialization logic in *initializer blocks*.
+
+#### Initializing classes: primary constructor and initializer blocks
+
+#### Secondary constructors: initializing the superclass in different ways
+
+Generally speaking, classes with multiple constructors are much less common in Kotlin code than in Java.
+The majority of situations where you'd need overloaded constructors in Java are covered by Kotlin's support for default parameter values and named argument syntax.
+
+### The "object" keyword: declaring a class and creating an instance, combined
+
+The object keyword comes up in Kotlin in a number of cases, but they all share the same core idea: the keyword defines a class and creates an instance (in other words, an object) of that class at the same time.
+Let's look at the different situations when it's used:
+* *Object declaration* is a way to define a singleton.
+* *Companion objects* can contain factory methods and other methods that are related to this class but don't require a class instance to be called.
+Their members can be accessed via class name.
+* *Object expression* is used instead of Java's anonymous inner class.
+
+#### Object declarations: singletons made easy
+
+Kotlin provides first-class language support for this using the *object declaration* feature.
+The *object declaration* combines a *class declaration* and a declaration of a *single instance* of that class.
+
+Object declarations are introduced with the `object` keyword.
+An object declaration effectively defines a class and a variable of that class in a single statement.
+
+Just like a class, an object declaration can contain declarations of properties, methods, initializer blocks, and so on.
+The only things that aren't allowed are constructors (either primary or secondary).
+Unlike instances of regular classes, object declarations are created immediately at the point of definition, not through constructor calls from other places in the code.
+Therefore, defining a constructor for an object declaration doesn't make sense.
+
+#### Companion objects: a place for factory methods and static members
+
+One of the objects defined in a class can be marked with a special keyword: `companion`.
+If you do that, you gain the ability to access the methods and properties of that object directly through the name of the containing class, without specifying the name of the object explicitly.
+The resulting syntax looks exactly like static method invocation in Java.
+
+The companion object has access to all `private` members of the class, including the `private` constructor, and it's an ideal candidate to implement the Factory pattern.
+
+#### Object expressions: anonymous inner classes rephrased
+
+The `object` keyword can be used not only for declaring named singleton-like objects, but also for declaring *anonymous objects*.
+Anonymous objects replace Java's use of anonymous inner classes.
+
+The syntax is the same as with object declarations, except that you omit the name of the object.
+The object expression declares a class and creates an instance of that class, but it doesn't assign a name to the class or the instance.
+Typically, neither is necessary, because you'll use the object as a parameter in a function call.
