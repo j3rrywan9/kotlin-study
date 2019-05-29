@@ -230,3 +230,23 @@ Anonymous objects replace Java's use of anonymous inner classes.
 The syntax is the same as with object declarations, except that you omit the name of the object.
 The object expression declares a class and creates an instance of that class, but it doesn't assign a name to the class or the instance.
 Typically, neither is necessary, because you'll use the object as a parameter in a function call.
+
+## Chapter 5
+
+Lambda expressions, or simply lambdas, are essentially small chunks of code that can be passed to other functions.
+With lambdas, you can easily extract common code structures into library functions, and the Kotlin standard library makes heavy use of them.
+One of the most common uses for lambdas is working with collections, and in this chapter you'll see many examples of replacing common collection access patterns with lambdas passed to standard library functions.
+
+### Lambda expressions and member references
+
+#### Introduction to lambdas: blocks of code as function parameters
+
+#### Lambdas and collections
+
+#### Syntax for lambda expressions
+
+#### Accessing variables in scope
+
+#### Member references
+
+Note that, regardless of whether you're referencing a function or a property, you shouldn't put parentheses after its name in a member reference.
