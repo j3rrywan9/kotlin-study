@@ -82,6 +82,27 @@ In Kotlin, `enum` is a so-called *soft keyword*: it has a special meaning when i
 
 Note that this example shows the only place in the Kotlin syntax where you're required to use semicolons: if you define any methods in the enum class, the semicolon separates the enum constant list from the method definitions.
 
+### Iterating over things: "while" and "for" loops
+
+#### The "while" loop
+
+Kotlin has `while` and `do-while` loops, and their syntax doesn't differ from the corresponding loops in Java.
+
+#### Iterating over numbers: ranges and progressions
+
+As we just mentioned, in Kotlin there's no regular Java `for` loop, where you initialize a variable, update its value on every step through the loop, and exit the loop when the value reaches a certain bound.
+To replace the most common use cases of such loops, Kotlin uses the concepts of *ranges*.
+
+A range is essentially just an interval between two values, usually numbers: a start and an end.
+You write it using the `..` operator:
+```kotlin
+val oneToTen = 1..10
+```
+Note that ranges in Kotlin are *closed* or *inclusive*, meaning the second value is always a part of the range.
+
+In many cases, it's more convenient to iterate over half-closed ranges, which don't include the specified end point.
+To create such a range, use the `until` function.
+
 ### Exceptions in Kotlin
 
 Exception handling in Kotlin is similar to the way it’s done in Java and many other languages.
