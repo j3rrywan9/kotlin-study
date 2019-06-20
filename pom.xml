@@ -13,5 +13,6 @@
   <modules>
     <module>examples</module>
     <module>common</module>
+    <module>algorithms</module>
   </modules>
 </project>
