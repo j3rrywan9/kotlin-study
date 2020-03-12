@@ -23,7 +23,7 @@ object SelectionSort {
 }
 
 fun main() {
-    val array = intArrayOf(64, 34, 25, 12, 22, 11, 90)
+    val array = intArrayOf(64, 34, 25, 12, 22, 11, 90, 42)
 
     println("Original array:")
     ArrayHelpers.printArray(array)
