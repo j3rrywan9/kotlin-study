@@ -8,7 +8,7 @@ Kotlin is concise, safe, pragmatic, and focused on interoperability with Java co
 
 ### Kotlin's primary traits
 
-####
+#### Target platforms: server-side, Android, anywhere Java runs
 
 The primary goal of Kotlin is to provide a more concise, more productive, safer alternative to Java that's suitable in all contexts where Java is used today.
 
@@ -74,6 +74,26 @@ Using immutable references, immutable objects, and functions without side effect
 
 ### Classes and properties
 
+You probably aren't new to object-oriented programming and are familiar with the abstraction of a *class*.
+Kotlin's concepts in this area will be familiar to you, but you'll find that many common tasks can be accomplished with much less code.
+
+Note that the modifier `public` disappeared during the conversion from Java to Kotlin.
+In Kotlin, `public` is the default visibility, so you can omit it.
+
+#### Properties
+
+In Kotlin, properties are a first-class language feature, which entirely replaces fields and accessor methods.
+
+#### Custom accessors
+
+This section shows you how to write a custom implementation of a property accessor.
+
+#### Kotlin source code layout: directories and packages
+
+In Kotlin, you can put multiple classes in the same file and choose any name for that file.
+Kotlin doesn't impose any restrictions on the layout of source files on disk;
+you can use any directory structure to organize your files.
+
 ### Representing and handling choices: enums and "when"
 
 #### Declaring enum classes
@@ -81,6 +101,11 @@ Using immutable references, immutable objects, and functions without side effect
 In Kotlin, `enum` is a so-called *soft keyword*: it has a special meaning when it comes before `class`, but you can use it as a regular name in other places.
 
 Note that this example shows the only place in the Kotlin syntax where you're required to use semicolons: if you define any methods in the enum class, the semicolon separates the enum constant list from the method definitions.
+
+#### Using `when` to deal with enum classes
+
+In Java, you can use a `switch` statement for this.
+The corresponding Kotlin construct is `when`.
 
 ### Iterating over things: "while" and "for" loops
 
