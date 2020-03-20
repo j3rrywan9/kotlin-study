@@ -15,7 +15,7 @@ object SelectionSort {
                 }
             }
             // Swap array[i] and minimum element
-            var temp = array[i]
+            val temp = array[i]
             array[i] = array[indexOfMinElement]
             array[indexOfMinElement] = temp
         }
