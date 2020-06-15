@@ -8,6 +8,12 @@ brew update
 brew install kotlin
 ```
 
+## Verify the Installation
+
+```bash
+kotlinc -version
+```
+
 ## How to compile and run?
 
 ```kotlin
