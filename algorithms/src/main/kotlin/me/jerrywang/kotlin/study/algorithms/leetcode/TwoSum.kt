@@ -1,5 +1,6 @@
 package me.jerrywang.kotlin.study.algorithms.leetcode
 
+// LC 1
 fun twoSum(nums: IntArray, target: Int): IntArray {
     val map: MutableMap<Int, Int> = mutableMapOf()
 
@@ -20,5 +21,6 @@ fun twoSum(nums: IntArray, target: Int): IntArray {
 
 fun main() {
     val result = twoSum(intArrayOf(2, 7, 11, 15), 9)
-    println("[${result[0]}, ${result[1]}]")
+
+    println(result.contentToString())
 }
