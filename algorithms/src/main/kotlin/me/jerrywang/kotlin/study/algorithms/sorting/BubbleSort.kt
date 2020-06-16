@@ -26,10 +26,10 @@ fun main() {
     val array = intArrayOf(64, 34, 25, 12, 22, 11, 90, 42)
 
     println("Original array:")
-    ArrayHelpers.printArray(array)
+    println(array.contentToString())
 
     BubbleSort.sort(array)
 
     println("Sorted array:")
-    ArrayHelpers.printArray(array)
+    println(array.contentToString())
 }
