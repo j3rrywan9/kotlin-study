@@ -145,3 +145,61 @@ Also, you may obtain a reference to the JDK `HashMap` using `hashMapOf()`, `Link
 
 You may iterate over all the keys in the map using the `keys` property or all the values using the `values` property.
 You may also check if a particular key or value exists using the `containsKey()` and `containsValue()` methods, respectively.
+
+## Type Safety to Save the Day
+
+Kotlin works hard to make your code more type safe and less error prone with enhanced null checks, smart type casting, and fluent type checking.
+
+With Kotlin's design-by-contract approach, you clearly express if and when a function or a method may receive or return a `null` reference.
+If a reference may possibly be `null`, then you're forced to perform a null check before you can access any useful methods or properties of the object that's referenced.
+Also, Kotlin provides a number of operators to work with `null` types, which reduces the noise in code when dealing with references that may be `null`.
+What's even more exciting about this capability is that these checks are purely at compile time and don't add anything to the bytecode.
+
+Much like Java's `Object`, all classes in Kotlin inherit from the `Any` class.
+This class brings under one fold a few common methods that are useful on instances of just about any class in Kotlin.
+
+One of the more advanced concepts in Kotlin is the nice support for working with covariance and contravariance of generics parametric types.
+
+### `Any` and `Nothing` Classes
+
+Some methods like `equals()` and `toString()` are pervasive.
+In Java you'd expect to find them in the Object base class.
+In Kotlin, these methods are included in the `Any` class, along with a number of other methods that are useful on instances of any class.
+`Any` is Kotlin's counterpart of Java's `Object` class, except `Any` has a lot of special methods that come in through extension functions.
+Kotlin also has a class named `Nothing` that serves to stand in as type when a function literally is expected to return nothing - this is useful for type-checking methods when one or more branches is expected to return nothing.
+Nothing in Java is equivalent to Kotlin’s Nothing.
+
+#### ANY, THE BASE CLASS
+
+#### NOTHING IS DEEPER THAN VOID
+
+### Nullable References
+
+#### NULL IS A SMELL
+
+Kotlin handles this situation safely, elegantly, and gracefully.
+To begin with, assigning `null` to a non-nullable reference or returning `null` where the reference type is non-nullable will result in a compilation error.
+
+#### USING NULLABLE TYPES
+
+Non-nullable types have a nullable counterpart.
+Where the type is a non-nullable reference, you can pass only a valid reference that is non-null.
+However, you may pass either a valid reference or a `null` to a nullable reference type.
+On the receiving side, you can't use the object held by a nullable reference without first performing a `null` check.
+
+The nullable types have a `?` suffix - that is, the counterpart for non-nullable `String` is `String?`.
+Likewise, `Int` vs. `Int?`, `List<String>` vs. `List<String>?`, and `YourOwnClass` vs. `YourOwnClass?`.
+
+Kotlin requires method calls on nullable references to be prefixed with either the safe-call operator or the non-null assertion operator - we'll see these operators soon.
+
+#### SAFE-CALL OPERATOR
+
+We can merge the null check and the call to a method or property into one step using `?.` — the safe-call operator.
+If the reference is `null`, the safe-call operator will result in `null`.
+Otherwise, the result will be the property or the result of the method call.
+In any case, the type will be the nullable counterpart of the method's return type or property's type.
+
+#### ELVIS OPERATOR
+
+The Elvis operator will return the result of the expression to the left if it's not `null`, otherwise it will evaluate and return the result of the expression on the right.
+The Elvis operator short circuits evaluation - that is, it doesn't evaluate what's on the right if that won't be used.
