@@ -25,7 +25,3 @@ fun threeSum(nums: IntArray, target: Int): List<List<Int>> {
 
     return res.toList()
 }
-
-fun main() {
-    println(threeSum(intArrayOf(-1, 0, 1, 2, -1, -4), 0))
-}
