@@ -203,3 +203,97 @@ In any case, the type will be the nullable counterpart of the method's return ty
 
 The Elvis operator will return the result of the expression to the left if it's not `null`, otherwise it will evaluate and return the result of the expression on the right.
 The Elvis operator short circuits evaluation - that is, it doesn't evaluate what's on the right if that won't be used.
+
+## Objects and Classes
+
+Kotlin's facility to create and work with classes and objects is more akin to the features in Scala than in Java.
+But Kotlin takes the low-ceremony approach further than Scala in a few ways.
+You invoke class constructors like functions - there's no `new` keyword in Kotlin.
+You don't waste your time and effort to define fields - that's an implementation detail that Kotlin takes care of.
+Instead, you define properties, and Kotlin proceeds to generate the backing fields where necessary.
+If your focus is on representing data rather than behavior, you can achieve that using data classes, for which Kotlin generates a few conventional methods.
+
+### Objects and Singletons
+
+By providing support for singletons directly, Kotlin removes the burden of implementing the pattern and the risks of getting it wrong.
+When you need, you can directly create an object without being forced to first define a class.
+For simple situations you can use objects, and for more complex cases, where you want to define an abstraction, you may create classes.
+
+#### ANONYMOUS OBJECTS WITH OBJECT EXPRESSIONS
+
+In its most basic form, an object expression is the keyword `object` followed by a block `{}`.
+
+In Kotlin, use object expressions anywhere you'd use anonymous inner classes in Java.
+
+#### SINGLETON WITH OBJECT DECLARATION
+
+If you place a name between the `object` keyword and the block `{}`, then Kotlin considers the definition a statement or declaration instead of an expression.
+Use an object expression to create an instance of an anonymous inner class and an object declaration to create a singleton - a class with a single instance.
+
+### Creating Classes
+
+The syntax for creating a class in Kotlin is closer to the facilities in Scala than in Java.
+The number of options and flexibilities seem almost endless; let's start small and grow the code for creating a class incrementally.
+
+#### SMALLEST CLASS
+
+Here's the minimum syntax for a class—the class keyword followed by the name of the class:
+```kotlin
+class Car
+```
+
+#### READ-ONLY PROPERTIES
+
+Let's define a property in the class:
+```kotlin
+class Car(val yearOfMake: Int)
+```
+By default, the access to the class and its members is public and the constructor is public as well.
+In Kotlin, the line that defines the class is actually defining the primary constructor.
+The keyword `constructor` isn't needed unless we want to change the access modifier or place an annotation for the primary constructor.
+
+#### CREATING INSTANCES
+
+Let's use the class to create an instance.
+New in Kotlin, related to creating objects, is there's no `new` keyword.
+To create an object use the class name like it's a function:
+```kotlin
+val car = Car(2019)
+println(car.yearOfMake)
+```
+Much like `val` local variables, `val` properties are immutable too.
+
+#### READ-WRITE PROPERTIES
+
+Use `val` to define read-only properties and `var` for properties that may change.
+
+#### A PEEK UNDER THE HOOD - FIELDS AND PROPERTIES
+
+In Kotlin you access properties by providing the name of the property instead of the getter or setter.
+
+#### CONTROLLING CHANGE TO PROPERTIES
+
+### Companion Objects and Class Members
+
+Companion objects are singletons defined within a class - they're singleton companions of classes.
+
+#### CLASS-LEVEL MEMBERS
+
+The members of the companion object of a class can be accessed using the class name as reference
+
+#### ACCESSING THE COMPANION
+
+#### COMPANION AS FACTORY
+
+Whether you give an explicit name or not, the companion object can serve as a factory to create instances of the class they are part of.
+
+To use a companion as a factory, provide a private constructor for the class.
+Then, provide one or more methods in the companion object that creates the instance and carries out the desired steps on the object before returning to the caller.
+
+### Creating Generics Classes
+
+Following the class name, the parametric type and the constraint are specified within the angle brackets `<>`.
+
+### Data Classes
+
+Much like the case classes of Scala, the *data classes* of Kotlin are specialized classes that are intended to carry mostly data rather than behavior.
