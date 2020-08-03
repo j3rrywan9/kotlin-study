@@ -5,7 +5,7 @@
 
   <artifactId>algorithms</artifactId>
   <packaging>jar</packaging>
-  <name>examples</name>
+  <name>algorithms</name>
 
   <parent>
     <groupId>me.jerrywang.kotlin.study</groupId>

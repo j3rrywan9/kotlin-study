@@ -11,8 +11,8 @@
     <name>study</name>
 
   <modules>
-    <module>examples</module>
     <module>common</module>
+    <module>examples</module>
     <module>algorithms</module>
   </modules>
 </project>
