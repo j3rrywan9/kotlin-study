@@ -3,7 +3,7 @@ package me.jerrywang.kotlin.study.algorithms.leetcode
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
-internal class MoveZeroesKtTest {
+internal class MoveZeroesTest {
 
     @Test
     fun testExample1() {
