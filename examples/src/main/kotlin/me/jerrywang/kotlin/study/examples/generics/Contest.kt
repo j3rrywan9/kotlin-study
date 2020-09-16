@@ -11,7 +11,7 @@ class Contest<T: Pet>(var vet: Vet<in T>) {
 
     fun getWinners(): MutableSet<T> {
         val winners: MutableSet<T> = mutableSetOf()
-        val highScore = scores.values.max()
+        val highScore = scores.values.maxOrNull()
 
         for ((t, score) in scores) {
             if (score == highScore) {
