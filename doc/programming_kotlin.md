@@ -1,12 +1,24 @@
 # Programming Kotlin
 
-## Working with Functions
+## Chapter 3 Working with Functions
 
 Kotlin doesn't insist that you create classes for everything.
 No one gets praise for duplicating code, but to reuse doesn't mean building a class hierarchy.
 Unlike Java where a class is the smallest reusable piece, in Kotlin both standalone functions and classes can be reused.
 
+Kotlin takes a highly pragmatic approach to creating good quality code - create small simple standalone functions where they suffice and roll your code into methods of classes only when necessary.
+
 ### Creating Functions
+
+#### KISS FUNCTIONS
+
+Function declarations start with the keyword `fun` - Kotlin wants you to remember to have fun every time you look at a function or a method.
+The function name is followed by a parameter list, which may be empty.
+If the function is a *single-expression function*, which is very short, then separate the body from the declaration using the `=` operator instead of using the `{}` block syntax.
+For short functions, the return type can be inferred.
+Also, the `return` keyword isn't allowed for single-expression functions, which are functions without a block body.
+
+#### RETURN TYPE AND TYPE INFERENCE
 
 #### DEFINING PARAMETERS
 
@@ -146,7 +158,7 @@ Also, you may obtain a reference to the JDK `HashMap` using `hashMapOf()`, `Link
 You may iterate over all the keys in the map using the `keys` property or all the values using the `values` property.
 You may also check if a particular key or value exists using the `containsKey()` and `containsValue()` methods, respectively.
 
-## Type Safety to Save the Day
+## Chapter 6 Type Safety to Save the Day
 
 Kotlin works hard to make your code more type safe and less error prone with enhanced null checks, smart type casting, and fluent type checking.
 
