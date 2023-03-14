@@ -25,5 +25,5 @@ fun main() {
 ```bash
 kotlinc Main.kt
 
-java -cp .:/usr/local/Cellar/kotlin/1.5.21/libexec/lib/kotlin-stdlib.jar MainKt
+java -cp .:/usr/local/Cellar/kotlin/1.7.0/libexec/lib/kotlin-stdlib.jar MainKt
 ```
