@@ -58,21 +58,37 @@ This helps greatly in eliminating application crashes.
 
 ### Using the Kotlin tools
 
-## Chapter 2
+## Chapter 2. Kotlin basics
 
-### Basic elements
+### 2.1 Basic elements: functions and variables
 
-#### Functions
+#### 2.1.2 Functions
 
-#### Variables
+You saw how to declare a function that has nothing to return.
+But where should you put a return type for a function that has a meaningful result?
+You can guess that it should go somewhere after the parameter list:
+```kotlin
+fun max(a: Int, b: Int): Int {
+    return if (a > b) a else b
+}
+```
+The function declaration starts with the `fun` keyword, followed by the function name: `max`, in this case.
+It's followed by the parameter list in parentheses.
+The return type comes after the parameter list, separated from it by a colon.
+
+#### 2.1.3 Variables
 
 By default, you should strive to declare all variables in Kotlin with the `val` keyword.
 Change it to `var` only if necessary.
 Using immutable references, immutable objects, and functions without side effects makes your code closer to the functional style.
 
-#### String templates
+#### 2.1.4 Easier string formatting: string templates
 
-### Classes and properties
+This example introduces a feature called *string templates*.
+In the code, you declare a variable name and then use it in the following string literal.
+Like many scripting languages, Kotlin allows you to refer to local variables in string literals by putting the `$` character in front of the variable name.
+
+### 2.2 Classes and properties
 
 You probably aren't new to object-oriented programming and are familiar with the abstraction of a *class*.
 Kotlin's concepts in this area will be familiar to you, but you'll find that many common tasks can be accomplished with much less code.
@@ -80,23 +96,30 @@ Kotlin's concepts in this area will be familiar to you, but you'll find that man
 Note that the modifier `public` disappeared during the conversion from Java to Kotlin.
 In Kotlin, `public` is the default visibility, so you can omit it.
 
-#### Properties
+#### 2.2.1 Properties
 
 In Kotlin, properties are a first-class language feature, which entirely replaces fields and accessor methods.
 
-#### Custom accessors
+#### 2.2.2 Custom accessors
 
 This section shows you how to write a custom implementation of a property accessor.
 
-#### Kotlin source code layout: directories and packages
+#### 2.2.3 Kotlin source code layout: directories and packages
+
+You can also import all declarations defined in a particular package by putting `.*` after the package name.
+Note that this star import will make visible not only classes defined in the package, but also top-level functions and properties.
 
 In Kotlin, you can put multiple classes in the same file and choose any name for that file.
 Kotlin doesn't impose any restrictions on the layout of source files on disk;
 you can use any directory structure to organize your files.
 
-### Representing and handling choices: enums and "when"
+In most cases, however, it's still a good practice to follow Java's directory layout and to organize source files into directories according to the package structure.
+Sticking to that structure is especially important in projects where Kotlin is mixed with Java, because doing so lets you migrate the code gradually without introducing any surprises.
+But you shouldn't hesitate to pull multiple classes into the same file, especially if the classes are small (and in Kotlin, they often are).
 
-#### Declaring enum classes
+### 2.3 Representing and handling choices: enums and "when"
+
+#### 2.3.1 Declaring enum classes
 
 In Kotlin, `enum` is a so-called *soft keyword*: it has a special meaning when it comes before `class`, but you can use it as a regular name in other places.
 
@@ -136,7 +159,7 @@ The function caller can catch this exception and process it; if it doesn't, the 
 
 ## Chapter 3
 
-### Creating collections in Kotlin
+### 3.1 Creating collections in Kotlin
 
 As you can see, Kotlin uses the standard Java collection classes.
 This is good news for Java developers: Kotlin doesn't have its own set of collection classes.
@@ -144,18 +167,60 @@ All of your existing knowledge about Java collections still applies here.
 
 Even though Kotlin's collections are exactly the same classes as Java collections, you can do much more with them in Kotlin.
 
-### Making functions easier to call
+### 3.2 Making functions easier to call
 
-#### Named arguments
+#### 3.2.1 Named arguments
+
+The first problem we'll address concerns the readability of function calls.
 
 When calling a function written in Kotlin, you can specify the names of some arguments that you're passing to the function.
 If you specify the name of an argument in a call, you should also specify the names for all the arguments after that, to avoid confusion.
 
-#### Default parameter values
+#### 3.2.2 Default parameter values
 
-### Working with collections
+Another common Java problem is the overabundance of overloaded methods in some classes.
 
-#### Varargs: functions that accept an arbitrary number of arguments
+In Kotlin, you can often avoid creating overloads because you can specify default values for parameters in a function declaration.
+
+When using the regular call syntax, you have to specify the arguments in the same order as in the function declaration, and you can omit only trailing arguments.
+If you use named arguments, you can omit some arguments from the middle of the list and specify only the ones you need, in any order you want:
+```kotlin
+joinToString(list, suffix = ";", prefix = "#")
+```
+
+##### Default values and Java
+
+Given that Java doesn't have the concept of default parameter values, you have to specify all the parameter values explicitly when you call a Kotlin function with default parameter values from Java.
+If you frequently need to call a function from Java and want to make it easier to use for Java callers, you can annotate it with `@JvmOverloads`.
+This instructs the compiler to generate Java overloaded methods, omitting each of the parameters one by one, starting from the last one.
+
+#### 3.2.3 Getting rid of static utility classes: top-level functions and properties
+
+In Kotlin, you don't need to create all those meaningless classes.
+Instead, you can place functions directly at the top level of a source file, outside of any class.
+Such functions are still members of the package declared at the top of the file, and you still need to import them if you want to call them from other packages, but the unnecessary extra level of nesting no longer exists.
+
+### 3.3 Adding methods to other people's classes: extension functions and properties
+
+#### 3.3.1 Imports and extension functions
+
+#### 3.3.2 Calling extension functions from Java
+
+#### 3.3.3 Utility functions as extensions
+
+#### 3.3.4 No overriding for extension functions
+
+#### 3.3.5 Extension properties
+
+Extension properties provide a way to extend classes with APIs that can be accessed using the property syntax, rather than the function syntax.
+Even though they're called *properties*, they can't have any state, because there's no proper place to store it: it's not possible to add extra fields to existing instances of Java objects.
+But the shorter syntax is still sometimes handy.
+
+### 3.4 Working with collections: varargs, infix calls, and library support
+
+#### 3.4.1 Extending the Java Collections API
+
+#### 3.4.2 Varargs: functions that accept an arbitrary number of arguments
 
 You're probably familiar with Java's varargs: a feature that allows you to pass an arbitrary number of values to a method by packing them in an array.
 Kotlin's varargs are similar to those in Java, but the syntax is slightly different: instead of three dots after the type, Kotlin uses the `vararg` modifier on the parameter.
@@ -172,13 +237,27 @@ fun main(args: Array<String>) {
 
 ## Chapter 4
 
-### Defining class hierarchies
+### 4.1 Defining class hierarchies
 
-#### Interfaces in Kotlin
+#### 4.1.1 Interfaces in Kotlin
 
 Kotlin interfaces are similar to those of Java 8: they can contain definitions of abstract methods as well as implementations of non-abstract methods (similar to the Java 8 default methods), but they can't contain any state.
 
 To declare an interface in Kotlin, use the `interface` keyword instead of `class`.
+```kotlin
+interface Clickable {
+    fun click()
+}
+```
+This declares an interface with a single abstract method named click.
+All non-abstract classes implementing the interface need to provide an implementation of this method.Here's how you implement the interface.
+```kotlin
+class Button : Clickable {
+    override fun click() = println("I was clicked")
+}
+```
+Kotlin uses the colon after the class name to replace both the `extends` and `implements` keywords used in Java.
+As in Java, a class can implement as many interfaces as it wants, but it can extend only one class.
 
 The `override` modifier, similar to the `@Override` annotation in Java, is used to mark methods and properties that override those from the superclass or interface.
 Unlike Java, using the `override` modifier is mandatory in Kotlin.
@@ -187,7 +266,7 @@ This saves you from accidentally overriding a method if it's added after you wro
 An interface method can have a default implementation.
 Unlike Java 8, which requires you to mark such implementations with the `default` keyword, Kotlin has no special annotation for such methods: you just provide a method body.
 
-#### Open, final, and abstract modifiers: final by default
+#### 4.1.2 Open, final, and abstract modifiers: final by default
 
 Kotlin follows the same philosophy.
 Whereas Java's classes and methods are open by default, Kotlin's are `final` by default.
@@ -198,18 +277,25 @@ In addition, you need to add the `open` modifier to every property or method tha
 Note that if you override a member of a base class or interface, the overriding member will also be `open` by default.
 If you want to change this and forbid the subclasses of your class from overriding your implementation, you can explicitly mark the overriding member as `final`.
 
-#### Visibility modifiers: public by default
+#### 4.1.3 Visibility modifiers: public by default
 
 Basically, visibility modifiers in Kotlin are similar to those in Java.
 You have the same `public`, `protected`, and `private` modifiers.
 But the default visibility is different: if you omit a modifier, the declaration becomes `public`.
 
-#### Inner and nested classes: nested by default
+The default visibility in Java, package-private, isn't present in Kotlin.
+Kotlin uses packages only as a way of organizing code in namespaces; it doesn't use them for visibility control.
+
+As an alternative, Kotlin offers a new visibility modifier, `internal`, which means "visible inside a module."
+A module is a set of Kotlin files compiled together.
+It may be an IntelliJ IDEA module, an Eclipse project, a Maven or Gradle project, or a set of files compiled with an invocation of the Ant task.
+
+#### 4.1.4 Inner and nested classes: nested by default
 
 A nested class in Kotlin with no explicit modifiers is the same as a static nested class in Java.
 To turn it into an inner class so that it contains a reference to an outer class, you use the `inner` modifier.
 
-#### Sealed classes: defining restricted class hierarchies
+#### 4.1.5 Sealed classes: defining restricted class hierarchies
 
 Kotlin provides a solution to this problem: `sealed` classes.
 You mark a superclass with the `sealed` modifier, and that restricts the possibility of creating subclasses.
@@ -219,21 +305,27 @@ sealed class Expr {
     class Num(val value: Int) : Expr()
     class Sum(val left: Expr, val right: Expr) : Expr()
 }
+
+fun eval(e: Expr): Int =
+    when (e) {
+        is Expr.Num -> e.value
+        is Expr.Sum ->
+    }
 ```
 If you handle all subclasses of a `sealed` class in a `when` expression, you don't need to provide the default branch.
 Note that the `sealed` modifier implies that the class is open; you don't need an explicit `open` modifier.
 
 When you use `when` with `sealed` classes and add a new subclass, the `when` expression returning a value fails to compile, which points you to the code that must be changed.
 
-### Declaring a class with nontrivial constructors or properties
+### 4.2 Declaring a class with nontrivial constructors or properties
 
 In Java, as you know, a class can declare one or more constructors.
 Kotlin is similar, with one additional change: it makes a distinction between a *primary* constructor (which is usually the main, concise way to initialize a class and is declared outside of the class body) and a *secondary* constructor (which is declared in the class body).
 It also allows you to put additional initialization logic in *initializer blocks*.
 
-#### Initializing classes: primary constructor and initializer blocks
+#### 4.2.1 Initializing classes: primary constructor and initializer blocks
 
-#### Secondary constructors: initializing the superclass in different ways
+#### 4.2.2 Secondary constructors: initializing the superclass in different ways
 
 Generally speaking, classes with multiple constructors are much less common in Kotlin code than in Java.
 The majority of situations where you'd need overloaded constructors in Java are covered by Kotlin's support for default parameter values and named argument syntax.
